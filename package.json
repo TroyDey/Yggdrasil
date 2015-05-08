@@ -1,6 +1,6 @@
 {
   "name": "treeDirective",
-  "version": "0.0.1",
+  "version": "0.0.6",
   "devDependencies": {
     "gulp-markdown": "^1.0.0",
     "jasmine-core": "^2.2.0",

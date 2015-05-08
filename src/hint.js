@@ -1,1 +1,0 @@
-var hate = true == false;
