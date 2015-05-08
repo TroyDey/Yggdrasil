@@ -2,6 +2,7 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     minifyCss = require('gulp-minify-css'),
+    markdown = require('gulp-markdown'),
     karma = require('gulp-karma'),
     clean = require('gulp-clean'),
     jsHint = require('gulp-jshint'),
@@ -36,6 +37,12 @@ gulp.task('bump', function () {
     return gulp.src('./package.json')
         .pipe(bump())
         .pipe(gulp.dest('./'));
+});
+
+gulp.task('build-docs', function () {
+    return gulp.src('README.md')
+        .pipe(markdown())
+        .pipe(gulp.dest('deployment'))
 });
 
 gulp.task('build-scripts', function () {
@@ -79,7 +86,7 @@ gulp.task('open', function () {
 
 //Composite tasks
 gulp.task('open-site', ['express', 'open']);
-gulp.task('build-all', ['build-templates', 'bump', 'build-scripts']);
+gulp.task('build-all', ['build-docs', 'build-templates', 'bump', 'build-scripts']);
 gulp.task('clean-build', ['clean', 'build-all']);
 
 
