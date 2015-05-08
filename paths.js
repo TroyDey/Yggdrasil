@@ -1,4 +1,5 @@
 var srcJs = [
+        'src/templates.js',
         'src/*.js',
         'src/*/*.js',
         'src/*/service/*.js',
