@@ -1,6 +1,6 @@
 {
   "name": "treeDirective",
-  "version": "0.0.10",
+  "version": "0.0.29",
   "devDependencies": {
     "jasmine-core": "^2.2.0",
     "karma": "^0.12.31",
@@ -13,10 +13,8 @@
     "karma-phantomjs-launcher": "^0.1.4"
   },
   "dependencies": {
-    "bower": "^1.3.1",
     "camelcase": "^1.0.2",
-    "connect-livereload": "~0.3.2",
-    "ecstatic": "~0.4.13",
+    "connect-livereload": "^0.5.3",
     "express": "latest",
     "gulp": "^3.6.0",
     "gulp-angular-templatecache": "^1.6.0",
@@ -27,21 +25,12 @@
     "gulp-karma": "latest",
     "gulp-livereload": "~0.2.0",
     "gulp-markdown": "^1.0.0",
-    "gulp-minify-css": "^1.1.0",
-    "gulp-minify-html": "latest",
-    "gulp-ng-annotate": "latest",
-    "gulp-ng-html2js": "latest",
     "gulp-open": "~0.2.8",
     "gulp-rename": "~1.2.0",
-    "gulp-sass": "~0.7.1",
     "gulp-uglify": "~0.2.1",
     "gulp-util": "^2.2.14",
     "gulp-watch": "^0.6.2",
     "http-server": "^0.6.1",
-    "journey": "^0.4.0-pre-3",
-    "karma": "latest",
-    "node-bourbon": "~1.0.0",
-    "node-neat": "~1.2.0",
-    "tiny-lr": "0.0.5"
+    "journey": "^0.4.0-pre-3"
   }
 }

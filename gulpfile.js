@@ -1,7 +1,6 @@
 var gulp = require('gulp'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
-    minifyCss = require('gulp-minify-css'),
     markdown = require('gulp-markdown'),
     karma = require('gulp-karma'),
     clean = require('gulp-clean'),
@@ -55,9 +54,13 @@ gulp.task('build-scripts', function () {
 });
 
 gulp.task('build-templates', function () {
-    return gulp.src('src/*/template/*tmp.html')
-        .pipe(templateCache('templates.js', {module: camelCase(directiveName + '-templates')}))
+    return gulp.src(paths.srcHtml)
+        .pipe(templateCache('templates.js', {module: camelCase(directiveName)}))
         .pipe(gulp.dest('src'));
+});
+
+gulp.task('watch', function () {
+        gulp.watch(['src/**/*.*', '!src/templates.js'], ['clean-build']);
 });
 
 gulp.task('tests', function () {
@@ -86,8 +89,9 @@ gulp.task('open', function () {
 
 //Composite tasks
 gulp.task('open-site', ['express', 'open']);
-gulp.task('build-all', ['build-docs', 'build-templates', 'bump', 'build-scripts']);
-gulp.task('clean-build', ['clean', 'build-all']);
+gulp.task('build-all', ['build-docs', 'build-templates', 'build-scripts']);
+gulp.task('build-all-bump', ['build-all', 'watch']);
+gulp.task('clean-build', ['watch', 'clean', 'build-all']);
 
 
 gulp.task('serve', ['clean-build', 'open-site']);
