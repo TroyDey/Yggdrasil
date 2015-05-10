@@ -1,1 +1,0 @@
-var third = 3;

@@ -71,6 +71,11 @@ gulp.task('tests', function () {
             }));
 });
 
+gulp.task('tests-dev', function () {
+   gulp.src(paths.karma)
+        .pipe(karma({configFile:'karma.conf.js',action:'watch'}));
+});
+
 gulp.task('express', function () {
     express()
         .use(connect())
