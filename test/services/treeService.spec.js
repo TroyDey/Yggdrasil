@@ -1,5 +1,17 @@
 describe('tree.service', function () {
-   var sut, tree;
+    var sut, tree;
+    var defaultDisplayNodeProperties = {
+                    id: '',
+                    label: '',
+                    parent: '',
+                    depth: -1,
+                    leaf: true,
+                    root: false,
+                    selected: false,
+                    moveCandidate: false,
+                    moveTarget: false,
+                    data: {}
+                };
 
     function _provide(callback) {
         module(function ($provide) {
@@ -48,7 +60,14 @@ describe('tree.service', function () {
 
             it('should return a tree with a single element in the display list when the tree is a single node', function () {
                 var singleNode = {id:'root',label:'root',children:[]};
-                var expectedResult = [{id:'root',label:'root',parent:null,depth:0}];
+                var expectedNode = angular.copy(defaultDisplayNodeProperties);
+
+                expectedNode.id = 'root';
+                expectedNode.label = 'root';
+                expectedNode.depth = 0;
+                expectedNode.parent = null;
+
+                var expectedResult = [expectedNode];
 
                 expect(sut.createTree(singleNode).displayList).toEqual(expectedResult);
             });
@@ -60,10 +79,39 @@ describe('tree.service', function () {
                         ]},
                     {id:'qux',label:'qux',children:[]}
                 ]};
-                var expectedResult = [{id:'root',label:'root',parent:null,depth:0},
-                                        {id:'foo',label:'foo',parent:'root',depth:1},
-                                        {id:'bar',label:'bar',parent:'foo',depth:2},
-                                        {id:'qux',label:'qux',parent:'root',depth:1}
+
+                var node1 = angular.copy(defaultDisplayNodeProperties);
+
+                node1.id = 'root';
+                node1.label = 'root';
+                node1.depth = 0;
+                node1.parent = null;
+
+                var node2 = angular.copy(defaultDisplayNodeProperties);
+
+                node2.id = 'foo';
+                node2.label = 'foo';
+                node2.depth = 1;
+                node2.parent = 'root';
+
+                var node3 = angular.copy(defaultDisplayNodeProperties);
+
+                node3.id = 'bar';
+                node3.label = 'bar';
+                node3.depth = 2;
+                node3.parent = 'foo';
+
+                var node4 = angular.copy(defaultDisplayNodeProperties);
+
+                node4.id = 'qux';
+                node4.label = 'qux';
+                node4.depth = 1;
+                node4.parent = 'root';
+
+                var expectedResult = [node1,
+                                        node2,
+                                        node3,
+                                        node4
                                      ];
 
                 expect(sut.createTree(singleNode).displayList).toEqual(expectedResult);
