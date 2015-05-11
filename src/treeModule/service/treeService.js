@@ -39,11 +39,16 @@
                 };
 
             self.buildTree = buildTree;
-            self.addSiblingToNode = addSiblingAtIndex;
+            self.addSiblingAtIndex = addSiblingAtIndex;
             self.addChildAtIndex = addChildAtIndex;
             self.addRoot = addRoot;
             self.editNodeAtIndex = editNodeAtIndex;
             self.deleteNodeAtIndex = deleteNodeAtIndex;
+            self.selectNode = selectNode;
+            self.setMoveCandidate = setMoveCandidate;
+            self.setMoveTarget = setMoveTarget;
+            self.moveNodeToSiblingOfTarget = moveNodeToSiblingOfTarget;
+            self.moveNodeToChildOfTarget = moveNodeToChildOfTarget;
             self.displayList = [];
 
              buildTree(inputTree);
@@ -53,36 +58,58 @@
             }
 
             function addSiblingAtIndex(node, index) {
+                if (_validMutatorMethodInput(index, node)) {
+                    return;
+                }
+
                 var displayNode = angular.copy(_defaultDisplayNodeProperties);
 
                 displayNode.id = node.id;
                 displayNode.label = node.label;
+                displayNode.depth = self.displayList[index].depth;
+                displayNode.parent = self.displayList[index].parent;
                 displayNode.data = node.data;
 
                 self.displayList.splice(index,0,displayNode);
             }
 
             function addChildAtIndex(node, index) {
+                if (_validMutatorMethodInput(index, node)) {
+                    return;
+                }
+
                 var displayNode = angular.copy(_defaultDisplayNodeProperties);
 
                 displayNode.id = node.id;
                 displayNode.label = node.label;
+                displayNode.depth = self.displayList[index].depth + 1;
+                displayNode.parent = self.displayList[index].id;
                 displayNode.data = node.data;
 
                 self.displayList.splice(index + 1,0,displayNode);
             }
 
             function addRoot(node) {
+                if (!node.id) {
+                    return;
+                }
+
                 var displayNode = angular.copy(_defaultDisplayNodeProperties);
 
                 displayNode.id = node.id;
                 displayNode.label = node.label;
+                displayNode.depth = 0;
+                displayNode.parent = null;
                 displayNode.data = node.data;
 
                 self.displayList.push(displayNode);
             }
 
             function editNodeAtIndex(node, index) {
+                if (_validMutatorMethodInput(index, node)) {
+                    return;
+                }
+
                 var nodeToEdit = self.displayList[index];
 
                 nodeToEdit.id = node.id;
@@ -91,7 +118,77 @@
             }
 
             function deleteNodeAtIndex(index) {
+                if (_validMutatorMethodInput(index)) {
+                    return;
+                }
+
                 self.displayList.splice(index, 1);
+            }
+
+            function selectNode(index) {
+                if (_validMutatorMethodInput(index)) {
+                    return;
+                }
+
+                var oldSelection = self.displayList.find(function (e) { return e.selected; });
+
+                if (oldSelection) {
+                    oldSelection.selected = false;
+                }
+
+                self.displayList[index].selected = true;
+            }
+
+            function setMoveCandidate(index) {
+                if (_validMutatorMethodInput(index)) {
+                    return;
+                }
+
+                var oldSelection = self.displayList.find(function (e) { return e.moveCandidate; });
+
+                if (oldSelection) {
+                    oldSelection.moveCandidate = false;
+                }
+
+                self.displayList[index].moveCandidate = true;
+            }
+
+            function setMoveTarget(index) {
+                if (_validMutatorMethodInput(index)) {
+                    return;
+                }
+
+                var oldSelection = self.displayList.find(function (e) { return e.moveTarget; });
+
+                if (oldSelection) {
+                    oldSelection.moveTarget = false;
+                }
+
+                self.displayList[index].moveTarget = true;
+            }
+
+            function moveNodeToSiblingOfTarget(sourceIndex, targetIndex) {
+                var temp = self.displayList.splice(sourceIndex, 1);
+
+                if(sourceIndex < targetIndex) {
+                    self.displayList.splice(targetIndex - 1, 0, temp);
+                } else {
+                    self.displayList.splice(targetIndex, 0, temp);
+                }
+            }
+
+            function moveNodeToChildOfTarget(sourceIndex, targetIndex) {
+                var temp = self.displayList.splice(sourceIndex, 1);
+
+                if(sourceIndex < targetIndex) {
+                    self.displayList.splice(targetIndex, 0, temp);
+                } else {
+                    self.displayList.splice(targetIndex - 1, 0, temp);
+                }
+            }
+
+            function _validMutatorMethodInput(index, node) {
+                return index < 0 || index > self.displayList.length || (node && !node.id)
             }
 
             function _topologicalSort(node) {

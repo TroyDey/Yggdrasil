@@ -60,7 +60,7 @@ gulp.task('build-templates', function () {
 });
 
 gulp.task('watch', function () {
-        gulp.watch(['src/**/*.*', '!src/templates.js'], ['clean-build']);
+        gulp.watch(['src/*.*', 'src/**/*.*', '!src/templates.js'], ['clean-build']);
 });
 
 gulp.task('tests', function () {
