@@ -17,7 +17,7 @@ var paths = require('./paths.js');
 var packageJson = require('./package.json');
 var jsHintrc = './.jshintrc';
 
-var directiveName = 'tree-directive';
+var directiveName = 'yggdrasil';
 
 var EXPRESS_PORT = 2015;
 

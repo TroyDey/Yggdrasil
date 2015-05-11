@@ -1,5 +1,5 @@
 {
-  "name": "treeDirective",
+  "name": "yggdrasil",
   "version": "0.0.29",
   "devDependencies": {
     "jasmine-core": "^2.2.0",
