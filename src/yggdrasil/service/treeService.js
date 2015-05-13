@@ -23,7 +23,7 @@
             }
         */
         function tree(inputTree) {
-            //TODO: Handel both inputTree of one root node and an array of root nodes will need to create psuedo root then
+            //TODO: Handle both inputTree of one root node and an array of root nodes will need to create psuedo root then
             var self = this;
             var _defaultDisplayNodeProperties = {
                     id: '',
