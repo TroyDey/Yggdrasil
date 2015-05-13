@@ -1,1 +1,0 @@
-var second = 2;

@@ -1,1 +1,0 @@
-var fifth = 5;

@@ -1,1 +1,0 @@
-var fourth = 4;

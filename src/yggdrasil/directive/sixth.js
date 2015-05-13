@@ -1,1 +1,0 @@
-var sixth = 6;
