@@ -51,7 +51,16 @@
             self.moveNodeToChildOfTarget = moveNodeToChildOfTarget;
             self.displayList = [];
 
-             buildTree(inputTree);
+            if (angular.isArray(inputTree)){
+                self.displayList = inputTree.reduce(function (previousValue, currentValue, index, array) {
+                    return index === 1 ? _topologicalSort(previousValue).concat(_topologicalSort(currentValue))
+                        : previousValue.concat(_topologicalSort(currentValue));
+                });
+            }else if (angular.isObject){
+                buildTree(inputTree);
+            }
+
+
 
             function buildTree(inputTree) {
                 self.displayList = _topologicalSort(inputTree);

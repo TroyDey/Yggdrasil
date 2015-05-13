@@ -118,6 +118,18 @@ describe('tree.service', function () {
             it('should return a tree with a multiple elements in the display list when the tree contains multiple elements', function () {
                 expect(sut.createTree(multiNode).displayList).toEqual(multiNodeExpectedResult);
             });
+
+            it('should create a display list with multiple level 0 nodes if the inputTree is an array', function () {
+                var multiRootTree = [];
+                for(var i = 0; i < 5; i++){
+                    var clone = angular.copy(multiNode);
+                    clone.id = clone.id + i;
+                    multiRootTree.push(clone);
+                }
+
+                var displayList = sut.createTree(multiRootTree).displayList;
+                expect(displayList.length).toBe(20);
+            });
         });
 
         describe('addSiblingAtIndex', function () {
