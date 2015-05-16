@@ -177,23 +177,31 @@
             }
 
             function moveNodeToSiblingOfTarget(sourceIndex, targetIndex) {
-                var temp = self.displayList.splice(sourceIndex, 1);
-
-                if(sourceIndex < targetIndex) {
-                    self.displayList.splice(targetIndex - 1, 0, temp);
-                } else {
-                    self.displayList.splice(targetIndex, 0, temp);
+                if (_validMutatorMethodInput(sourceIndex) || _validMutatorMethodInput(targetIndex)) {
+                    return;
                 }
+
+                var temp = self.displayList.splice(sourceIndex, 1)[0];
+                var target = self.displayList[targetIndex];
+
+                temp.parent = target.parent;
+                temp.depth = target.depth;
+
+                self.displayList.splice(targetIndex, 0, temp);
             }
 
             function moveNodeToChildOfTarget(sourceIndex, targetIndex) {
-                var temp = self.displayList.splice(sourceIndex, 1);
-
-                if(sourceIndex < targetIndex) {
-                    self.displayList.splice(targetIndex, 0, temp);
-                } else {
-                    self.displayList.splice(targetIndex - 1, 0, temp);
+                if (_validMutatorMethodInput(sourceIndex) || _validMutatorMethodInput(targetIndex)) {
+                    return;
                 }
+
+                var temp = self.displayList.splice(sourceIndex, 1)[0];
+                var target = self.displayList[targetIndex];
+
+                temp.parent = target.id;
+                temp.depth = target.depth + 1;
+
+                self.displayList.splice(targetIndex + 1, 0, temp);
             }
 
             function _validMutatorMethodInput(index, node) {

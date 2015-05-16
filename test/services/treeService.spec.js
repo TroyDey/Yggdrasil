@@ -344,5 +344,59 @@ describe('tree.service', function () {
                 expect(tree.displayList[1].moveTarget).toBeFalsy();
             });
         });
+
+        describe('moveNodeToChildOfTarget', function () {
+
+            it('should not modify the display list if the index is invalid', function () {
+                var tree = sut.createTree(multiNode);
+
+                tree.moveNodeToChildOfTarget(-1);
+
+                expect(tree.displayList).toEqual(multiNodeExpectedResult);
+            });
+
+            it('should move the source node to be a child of the target', function () {
+                var tree = sut.createTree(multiNode);
+
+                tree.moveNodeToChildOfTarget(3, 1);
+
+                expect(tree.displayList[2].id).toBe('qux');
+            });
+
+            it('should move the source node should have the proper depth', function () {
+                var tree = sut.createTree(multiNode);
+
+                tree.moveNodeToChildOfTarget(3, 1);
+
+                expect(tree.displayList[2].depth).toBe(2);
+            });
+        });
+
+        describe('moveNodeToSiblingOfTarget', function () {
+
+            it('should not modify the display list if the index is invalid', function () {
+                var tree = sut.createTree(multiNode);
+
+                tree.moveNodeToSiblingOfTarget(-1);
+
+                expect(tree.displayList).toEqual(multiNodeExpectedResult);
+            });
+
+            it('should move the source node to be a sibling of the target', function () {
+                var tree = sut.createTree(multiNode);
+
+                tree.moveNodeToSiblingOfTarget(3, 1);
+
+                expect(tree.displayList[1].id).toBe('qux');
+            });
+
+            it('should move the source node should have the proper depth', function () {
+                var tree = sut.createTree(multiNode);
+
+                tree.moveNodeToSiblingOfTarget(3, 1);
+
+                expect(tree.displayList[1].depth).toBe(1);
+            });
+        });
     });
 });
