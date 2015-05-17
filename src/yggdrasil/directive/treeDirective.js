@@ -9,10 +9,11 @@
         return {
             restrict: 'E',
             scope: {
-                tree: '='
+                tree: '=',
+                indentPixelAmount: '@'
             },
             transclude: true,
-            template: '<ul><li id="yggdrasil-{{node.id}}" class="node" ng-class="{selected: node.selected, hidden: node.hidden, collapsed: node.collapsed, leaf: node.leaf, moveCandidate: node.moveCandidate, moveTarget: node.moveTarget, disabled: node.disabled}" ng-hide="node.hidden" ng-repeat="node in treeVm.displayList track by node.id" ng-style-="{\'padding-left\':node.level * treeVm.indentPixelAmount - treeVm.indentPixelAmount + \'pxl\'}"><div class="node-content" transclude-alt></div></li></ul>',
+            template: '<ul><li id="yggdrasil-{{node.id}}" class="node" ng-class="{selected: node.selected, hidden: node.hidden, collapsed: node.collapsed, leaf: node.leaf, moveCandidate: node.moveCandidate, moveTarget: node.moveTarget, disabled: node.disabled}" ng-hide="node.hidden" ng-repeat="node in treeVm.displayList track by node.id" ng-style="{\'padding-left\':node.depth * treeVm.indentPixelAmount - treeVm.indentPixelAmount + \'px\'}"><div class="node-content" transclude-alt></div></li></ul>',
             controller: treeController,
             controllerAs: 'treeVm',
             bindToController: true
@@ -22,7 +23,10 @@
     treeController.$inject = ['treeService'];
 
     function treeController(treeService) {
+        var treeVm = this;
 
+        treeVm.masterTree = treeService.createTree(treeVm.tree);
+        treeVm.displayList = treeVm.masterTree.displayList;
     }
 
-});
+})();

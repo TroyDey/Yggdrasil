@@ -11,6 +11,9 @@ describe('tree.service', function () {
                     selected: false,
                     moveCandidate: false,
                     moveTarget: false,
+                    disabled: false,
+                    hidden: false,
+                    collapsed: false,
                     data: {}
                 };
 

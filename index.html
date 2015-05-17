@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>BLAH</title>
-</head>
-<body>
-I am empty inside..
-</body>
+<!doctype html>
+<html ng-app="yggdrasil">
+    <head>
+
+    </head>
+    <body>
+        <h2>Yggdrasil Demo</h2>
+
+        <div ng-controller="demoCtrl as demoVm">
+            <tree tree="demoVm.tree" indent-pixel-amount="20">
+                <span>{{node.id}}</span>
+            </tree>
+        </div>
+
+        <script src="/bower_components/angular/angular.js"></script>
+        <script src="/src/polyfills.js"></script>
+        <script src="/src/yggdrasil/yggdrasil.js"></script>
+        <script src="/src/yggdrasil/service/treeService.js"></script>
+        <script src="/src/yggdrasil/directive/transclude-alt.directive.js"></script>
+        <script src="/src/yggdrasil/directive/treeDirective.js"></script>
+        <script src="/src/yggdrasil/demo/demoCtrl.js"></script>
+    </body>
 </html>
