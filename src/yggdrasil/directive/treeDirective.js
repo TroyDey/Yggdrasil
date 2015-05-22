@@ -20,13 +20,15 @@
         };
     }
 
-    treeController.$inject = ['treeService'];
+    treeController.$inject = ['$scope', 'treeService'];
 
-    function treeController(treeService) {
+    function treeController($scope, treeService) {
         var treeVm = this;
 
-        treeVm.masterTree = treeService.createTree(treeVm.tree);
-        treeVm.displayList = treeVm.masterTree.displayList;
+        $scope.$watch('tree', function(newTree){
+            treeVm.masterTree = treeService.createTree(treeVm.tree);
+            treeVm.displayList = treeVm.masterTree.displayList;
+        });
     }
 
 })();
