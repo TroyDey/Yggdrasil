@@ -49,7 +49,7 @@ describe('tree.service', function () {
     }
 
     beforeEach(function () {
-        module('yggdrasil.services');
+        module('yggdrasil');        
 
         var node1 = angular.copy(defaultDisplayNodeProperties);
 

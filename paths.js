@@ -1,7 +1,6 @@
-var srcJs = [
-        'src/templates.js',
+var srcJs = [        
         'src/*.js',
-        'src/*/*.js',
+        'src/yggdrasil/*.js',
         'src/*/service/*.js',
         'src/*/controller/*.js',
         'src/*/filter/*.js',
